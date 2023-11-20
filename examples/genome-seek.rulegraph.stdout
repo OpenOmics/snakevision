@@ -1,0 +1,207 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.34 0.6 0.85", style="rounded"];
+	1[label = "fc_lane", color = "0.35 0.6 0.85", style="rounded"];
+	2[label = "fastqc_raw", color = "0.09 0.6 0.85", style="rounded"];
+	3[label = "fastqc_bam", color = "0.57 0.6 0.85", style="rounded"];
+	4[label = "bwa_mem2", color = "0.33 0.6 0.85", style="rounded"];
+	5[label = "fastp", color = "0.18 0.6 0.85", style="rounded"];
+	6[label = "fastq_screen", color = "0.01 0.6 0.85", style="rounded"];
+	7[label = "qualimap", color = "0.30 0.6 0.85", style="rounded"];
+	8[label = "samtools_flagstats", color = "0.29 0.6 0.85", style="rounded"];
+	9[label = "hla", color = "0.24 0.6 0.85", style="rounded"];
+	10[label = "deepvariant", color = "0.17 0.6 0.85", style="rounded"];
+	11[label = "glnexus", color = "0.06 0.6 0.85", style="rounded"];
+	12[label = "gatk_selectvariants", color = "0.61 0.6 0.85", style="rounded"];
+	13[label = "bcftools_stats", color = "0.19 0.6 0.85", style="rounded"];
+	14[label = "gatk_varianteval", color = "0.00 0.6 0.85", style="rounded"];
+	15[label = "snpeff", color = "0.10 0.6 0.85", style="rounded"];
+	16[label = "vcftools", color = "0.41 0.6 0.85", style="rounded"];
+	17[label = "collectvariantcallmetrics", color = "0.20 0.6 0.85", style="rounded"];
+	18[label = "somalier", color = "0.43 0.6 0.85", style="rounded"];
+	19[label = "peddy", color = "0.52 0.6 0.85", style="rounded"];
+	20[label = "canvas", color = "0.26 0.6 0.85", style="rounded"];
+	21[label = "manta_germline", color = "0.42 0.6 0.85", style="rounded"];
+	22[label = "chrom_selectvariants", color = "0.02 0.6 0.85", style="rounded"];
+	23[label = "opencravat_germline", color = "0.04 0.6 0.85", style="rounded"];
+	24[label = "opencravat_germline_filter", color = "0.63 0.6 0.85", style="rounded"];
+	25[label = "opencravat_germline_merge", color = "0.54 0.6 0.85", style="rounded"];
+	26[label = "gatk_realign", color = "0.12 0.6 0.85", style="rounded"];
+	27[label = "gatk_scatter_recal", color = "0.28 0.6 0.85", style="rounded"];
+	28[label = "gatk_gather_recal", color = "0.62 0.6 0.85", style="rounded"];
+	29[label = "gatk_apply_recal", color = "0.44 0.6 0.85", style="rounded"];
+	30[label = "octopus_somatic", color = "0.14 0.6 0.85", style="rounded"];
+	31[label = "octopus_filter", color = "0.32 0.6 0.85", style="rounded"];
+	32[label = "octopus_merge", color = "0.15 0.6 0.85", style="rounded"];
+	33[label = "manta_somatic", color = "0.22 0.6 0.85", style="rounded"];
+	34[label = "manta_somatic_filter", color = "0.05 0.6 0.85", style="rounded"];
+	35[label = "gatk_scatter_mutect2", color = "0.51 0.6 0.85", style="rounded"];
+	36[label = "gatk_learnReadOrientationModel", color = "0.55 0.6 0.85", style="rounded"];
+	37[label = "gatk_tumorPileup", color = "0.37 0.6 0.85", style="rounded"];
+	38[label = "gatk_normalPileup", color = "0.13 0.6 0.85", style="rounded"];
+	39[label = "gatk_contamination", color = "0.39 0.6 0.85", style="rounded"];
+	40[label = "gatk_filter_mutect2", color = "0.49 0.6 0.85", style="rounded"];
+	41[label = "gatk_gather_mutect2", color = "0.47 0.6 0.85", style="rounded"];
+	42[label = "muse", color = "0.16 0.6 0.85", style="rounded"];
+	43[label = "strelka_format", color = "0.38 0.6 0.85", style="rounded"];
+	44[label = "strelka", color = "0.23 0.6 0.85", style="rounded"];
+	45[label = "somatic_selectvar", color = "0.48 0.6 0.85", style="rounded"];
+	46[label = "somatic_merge_tumor", color = "0.08 0.6 0.85", style="rounded"];
+	47[label = "somatic_sample_maf", color = "0.66 0.6 0.85", style="rounded"];
+	48[label = "somatic_cohort_maf", color = "0.53 0.6 0.85", style="rounded"];
+	49[label = "somatic_cohort_maftools", color = "0.31 0.6 0.85", style="rounded"];
+	50[label = "somatic_sample_sigprofiler", color = "0.40 0.6 0.85", style="rounded"];
+	51[label = "somatic_cohort_sigprofiler", color = "0.46 0.6 0.85", style="rounded"];
+	52[label = "hmftools_amber", color = "0.56 0.6 0.85", style="rounded"];
+	53[label = "hmftools_cobalt", color = "0.25 0.6 0.85", style="rounded"];
+	54[label = "hmftools_purple", color = "0.59 0.6 0.85", style="rounded"];
+	55[label = "somatic_purple_maf", color = "0.11 0.6 0.85", style="rounded"];
+	56[label = "purple_cohort_maftools", color = "0.58 0.6 0.85", style="rounded"];
+	57[label = "purple_cohort_maf", color = "0.27 0.6 0.85", style="rounded"];
+	58[label = "opencravat_somatic", color = "0.60 0.6 0.85", style="rounded"];
+	59[label = "opencravat_somatic_filter", color = "0.45 0.6 0.85", style="rounded"];
+	60[label = "multiqc", color = "0.65 0.6 0.85", style="rounded"];
+	14 -> 0
+	6 -> 0
+	22 -> 0
+	23 -> 0
+	34 -> 0
+	11 -> 0
+	46 -> 0
+	2 -> 0
+	15 -> 0
+	26 -> 0
+	55 -> 0
+	38 -> 0
+	30 -> 0
+	42 -> 0
+	10 -> 0
+	5 -> 0
+	13 -> 0
+	17 -> 0
+	33 -> 0
+	9 -> 0
+	27 -> 0
+	20 -> 0
+	49 -> 0
+	53 -> 0
+	8 -> 0
+	7 -> 0
+	31 -> 0
+	4 -> 0
+	1 -> 0
+	37 -> 0
+	43 -> 0
+	39 -> 0
+	50 -> 0
+	16 -> 0
+	21 -> 0
+	18 -> 0
+	29 -> 0
+	59 -> 0
+	51 -> 0
+	45 -> 0
+	40 -> 0
+	35 -> 0
+	19 -> 0
+	48 -> 0
+	25 -> 0
+	36 -> 0
+	52 -> 0
+	3 -> 0
+	56 -> 0
+	54 -> 0
+	58 -> 0
+	12 -> 0
+	28 -> 0
+	24 -> 0
+	60 -> 0
+	47 -> 0
+	4 -> 3
+	5 -> 4
+	5 -> 6
+	4 -> 7
+	4 -> 8
+	4 -> 9
+	4 -> 10
+	10 -> 11
+	11 -> 12
+	12 -> 13
+	12 -> 14
+	12 -> 15
+	11 -> 16
+	11 -> 17
+	11 -> 18
+	11 -> 19
+	10 -> 20
+	19 -> 20
+	11 -> 20
+	4 -> 20
+	4 -> 21
+	11 -> 22
+	22 -> 23
+	23 -> 24
+	24 -> 25
+	4 -> 26
+	26 -> 27
+	27 -> 28
+	26 -> 29
+	28 -> 29
+	29 -> 30
+	32 -> 31
+	30 -> 32
+	29 -> 33
+	33 -> 34
+	29 -> 35
+	35 -> 36
+	29 -> 37
+	29 -> 38
+	38 -> 39
+	37 -> 39
+	41 -> 40
+	36 -> 40
+	39 -> 40
+	35 -> 41
+	29 -> 42
+	44 -> 43
+	29 -> 44
+	31 -> 45
+	42 -> 45
+	43 -> 45
+	40 -> 45
+	45 -> 46
+	46 -> 47
+	47 -> 48
+	48 -> 49
+	47 -> 50
+	50 -> 51
+	29 -> 52
+	29 -> 53
+	34 -> 54
+	53 -> 54
+	52 -> 54
+	47 -> 54
+	54 -> 55
+	57 -> 56
+	55 -> 57
+	46 -> 58
+	58 -> 59
+	10 -> 60
+	16 -> 60
+	14 -> 60
+	6 -> 60
+	5 -> 60
+	3 -> 60
+	13 -> 60
+	17 -> 60
+	11 -> 60
+	12 -> 60
+	2 -> 60
+	15 -> 60
+	8 -> 60
+	7 -> 60
+	4 -> 60
+	1 -> 60
+}            

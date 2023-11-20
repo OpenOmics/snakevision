@@ -1,0 +1,58 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.41 0.6 0.85", style="rounded"];
+	1[label = "fc_lane", color = "0.03 0.6 0.85", style="rounded"];
+	2[label = "rawfastqc", color = "0.25 0.6 0.85", style="rounded"];
+	3[label = "fastqc", color = "0.38 0.6 0.85", style="rounded"];
+	4[label = "trim", color = "0.00 0.6 0.85", style="rounded"];
+	5[label = "remove_host", color = "0.29 0.6 0.85", style="rounded"];
+	6[label = "kraken_viral", color = "0.60 0.6 0.85", style="rounded"];
+	7[label = "metaspades", color = "0.10 0.6 0.85", style="rounded"];
+	8[label = "megahit", color = "0.63 0.6 0.85", style="rounded"];
+	9[label = "blast_metaspades_contigs", color = "0.44 0.6 0.85", style="rounded"];
+	10[label = "blast_megahit_contigs", color = "0.54 0.6 0.85", style="rounded"];
+	11[label = "krona", color = "0.19 0.6 0.85", style="rounded"];
+	12[label = "prep_metaquast", color = "0.06 0.6 0.85", style="rounded"];
+	13[label = "metaquast", color = "0.16 0.6 0.85", style="rounded"];
+	14[label = "prep_aggregate_megahit_scatter", color = "0.51 0.6 0.85", style="rounded"];
+	15[label = "aggregate", color = "0.35 0.6 0.85", style="rounded"];
+	16[label = "prep_aggregate_metaspades_gather", color = "0.22 0.6 0.85", style="rounded"];
+	17[label = "prep_aggregate_metaspades_scatter", color = "0.48 0.6 0.85", style="rounded"];
+	18[label = "prep_aggregate_megahit_gather", color = "0.32 0.6 0.85", style="rounded"];
+	7 -> 0
+	6 -> 0
+	8 -> 0
+	13 -> 0
+	11 -> 0
+	2 -> 0
+	4 -> 0
+	5 -> 0
+	1 -> 0
+	15 -> 0
+	14 -> 0
+	10 -> 0
+	3 -> 0
+	12 -> 0
+	9 -> 0
+	4 -> 3
+	4 -> 5
+	5 -> 6
+	5 -> 7
+	5 -> 8
+	7 -> 9
+	8 -> 10
+	7 -> 11
+	8 -> 11
+	6 -> 12
+	7 -> 13
+	8 -> 13
+	12 -> 13
+	8 -> 14
+	16 -> 15
+	18 -> 15
+	17 -> 16
+	7 -> 17
+	14 -> 18
+}            

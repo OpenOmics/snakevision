@@ -1,0 +1,87 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.18 0.6 0.85", style="rounded"];
+	1[label = "fc_lane", color = "0.10 0.6 0.85", style="rounded"];
+	2[label = "rawfastqc", color = "0.41 0.6 0.85", style="rounded"];
+	3[label = "fastqc", color = "0.26 0.6 0.85", style="rounded"];
+	4[label = "trim_pe", color = "0.49 0.6 0.85", style="rounded"];
+	5[label = "bbmerge", color = "0.64 0.6 0.85", style="rounded"];
+	6[label = "fastq_screen", color = "0.23 0.6 0.85", style="rounded"];
+	7[label = "kraken_pe", color = "0.00 0.6 0.85", style="rounded"];
+	8[label = "star2p", color = "0.28 0.6 0.85", style="rounded"];
+	9[label = "sjdb", color = "0.33 0.6 0.85", style="rounded"];
+	10[label = "star1p", color = "0.51 0.6 0.85", style="rounded"];
+	11[label = "arriba", color = "0.62 0.6 0.85", style="rounded"];
+	12[label = "picard", color = "0.31 0.6 0.85", style="rounded"];
+	13[label = "bam2bw_rnaseq_pe", color = "0.21 0.6 0.85", style="rounded"];
+	14[label = "rseqc", color = "0.05 0.6 0.85", style="rounded"];
+	15[label = "stats", color = "0.08 0.6 0.85", style="rounded"];
+	16[label = "preseq", color = "0.38 0.6 0.85", style="rounded"];
+	17[label = "qualibam", color = "0.54 0.6 0.85", style="rounded"];
+	18[label = "inner_distance", color = "0.15 0.6 0.85", style="rounded"];
+	19[label = "tin", color = "0.36 0.6 0.85", style="rounded"];
+	20[label = "tin_merge", color = "0.56 0.6 0.85", style="rounded"];
+	21[label = "rsem", color = "0.13 0.6 0.85", style="rounded"];
+	22[label = "rsem_merge", color = "0.59 0.6 0.85", style="rounded"];
+	23[label = "rnaseq_multiqc", color = "0.03 0.6 0.85", style="rounded"];
+	24[label = "rna_report", color = "0.46 0.6 0.85", style="rounded"];
+	7 -> 0
+	23 -> 0
+	14 -> 0
+	15 -> 0
+	1 -> 0
+	21 -> 0
+	18 -> 0
+	13 -> 0
+	6 -> 0
+	3 -> 0
+	8 -> 0
+	12 -> 0
+	19 -> 0
+	16 -> 0
+	2 -> 0
+	24 -> 0
+	17 -> 0
+	20 -> 0
+	11 -> 0
+	22 -> 0
+	5 -> 0
+	4 -> 3
+	4 -> 5
+	4 -> 6
+	4 -> 7
+	9 -> 8
+	4 -> 8
+	10 -> 9
+	4 -> 10
+	4 -> 11
+	8 -> 12
+	14 -> 13
+	12 -> 13
+	12 -> 14
+	12 -> 15
+	12 -> 16
+	12 -> 17
+	12 -> 18
+	14 -> 19
+	12 -> 19
+	19 -> 20
+	8 -> 21
+	14 -> 21
+	21 -> 22
+	1 -> 23
+	21 -> 23
+	14 -> 23
+	12 -> 23
+	17 -> 23
+	16 -> 23
+	18 -> 23
+	19 -> 23
+	6 -> 23
+	15 -> 23
+	20 -> 24
+	23 -> 24
+	22 -> 24
+}            
