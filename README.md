@@ -20,13 +20,13 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
 <p float="left">
     <img src="./examples/genome-seek_dag.svg" alt="example_genome_snakevision_dag" width="35%">
     <img src="./examples/rna-seek_dag.svg" alt="example_rna_snakevision_dag" width="63%">
-    <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of the whole genome sequencing pipeline, <a href="https://github.com/OpenOmics/genome-seek">genome-seek</a>. <b>Right:</b> A snakevision rule graph of a slimmed-down version of the <a href="https://github.com/OpenOmics/RNA-seek">rna-seek</a> pipeline.</sup>
+    <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of the whole genome sequencing pipeline, <a href="https://github.com/OpenOmics/genome-seek">genome-seek</a>.<br><b>Right:</b> A snakevision rule graph of a slimmed-down version of the <a href="https://github.com/OpenOmics/RNA-seek">rna-seek</a> pipeline.</sup>
 </p><br>
 
 <p float="left">
     <img src="./examples/modr_dag.svg" alt="example_ont_snakevision_dag" width="39%">
     <img src="./examples/metavirs_dag.svg" alt="example_viral_snakevision_dag" width="58%">
-    <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of our Oxford Nanopore direct RNA-sequencing pipeline, <a href="https://github.com/OpenOmics/modr">modr</a>. <b>Right:</b> A snakevision rule graph of a slimmed-down version of our viral metagenomics pipeline, <a href="https://github.com/OpenOmics/metavirs">metavirs</a>.</sup>
+    <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of our Oxford Nanopore direct RNA-sequencing pipeline, <a href="https://github.com/OpenOmics/modr">modr</a>.<br><b>Right:</b> A snakevision rule graph of a slimmed-down version of our viral metagenomics pipeline, <a href="https://github.com/OpenOmics/metavirs">metavirs</a>.</sup>
 </p>
 
 ## Dependencies
