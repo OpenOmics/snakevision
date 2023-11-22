@@ -6,9 +6,6 @@
 
   [![GitHub issues](https://img.shields.io/github/issues/OpenOmics/snakevision?color=brightgreen)](https://github.com/OpenOmics/snakevision/issues)  [![GitHub license](https://img.shields.io/github/license/OpenOmics/snakevision)](https://github.com/OpenOmics/snakevision/blob/main/LICENSE) 
   
-  <i>
-    Its long-term goals: are to create awesome Snakemake workflow diagrams like no tool before!
-  </i>
 </div>
 
 ## Overview
@@ -18,7 +15,7 @@ The **`./snakevision`** provides a simplified command-line interface to visualiz
 
 ## Examples
 
-Here are a few DAGs rendered by `snakevision`. These DAGs come from different pipelines available from [OpenOmics](https://github.com/OpenOmics).
+Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come from different pipelines available from [OpenOmics](https://github.com/OpenOmics).
 
 <p float="left">
     <img src="./examples/genome-seek_dag.svg" alt="example_genome_snakevision_dag" width="35%">
