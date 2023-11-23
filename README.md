@@ -11,7 +11,7 @@
 ## Overview
 Welcome to snakevision! Before getting started, we highly recommend reading through our documentation below.
 
-The **`./snakevision`** provides a simplified command-line interface to visualize Snakemake DAGs or rule graphs. If you are familiar with other existing tools to visualize DAGs like [graphviz](https://graphviz.org/), getting started with `snakevision` should be a breeze. 
+**`./snakevision`** provides a simplified command-line interface to visualize Snakemake DAGs or rule graphs. If you are familiar with other existing tools to visualize DAGs like [graphviz](https://graphviz.org/), getting started with `snakevision` should be a breeze. 
 
 ## Examples
 
@@ -30,7 +30,7 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
 </p>
 
 ## Dependencies
-**Requires:** `snakemake` [`requirements.txt`](https://github.com/OpenOmics/snakevision/blob/main/requirements.txt)
+**Requires:** `snakemake` `python>=3.7`
 
 At the current moment, the tool is designed to visualize rule graphs of existing snakemake pipelines. As so, [Snakemake<sup>1</sup>](https://snakemake.readthedocs.io/en/stable/) and any dependencies of the pipeline should be installed on the target system. This tool relies on a few 3rd-party pypi python packages which can be installed via pip from the provided [requirements.txt](https://github.com/OpenOmics/snakevision/blob/main/requirements.txt). 
 
