@@ -1,0 +1,76 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.62 0.6 0.85", style="rounded"];
+	1[label = "multiqc", color = "0.27 0.6 0.85", style="rounded"];
+	2[label = "fastq_screen", color = "0.05 0.6 0.85", style="rounded"];
+	3[label = "trim", color = "0.12 0.6 0.85", style="rounded"];
+	4[label = "kraken", color = "0.10 0.6 0.85", style="rounded"];
+	5[label = "preseq", color = "0.35 0.6 0.85", style="rounded"];
+	6[label = "BWA", color = "0.17 0.6 0.85", style="rounded"];
+	7[label = "dedup", color = "0.22 0.6 0.85", style="rounded"];
+	8[label = "rawfastqc", color = "0.32 0.6 0.85", style="rounded"];
+	9[label = "fastqc", color = "0.54 0.6 0.85", style="rounded"];
+	10[label = "deeptools_QC", color = "0.59 0.6 0.85", style="rounded"];
+	11[label = "bam2bw", color = "0.44 0.6 0.85", style="rounded"];
+	12[label = "ppqt", color = "0.07 0.6 0.85", style="rounded"];
+	13[label = "insert_size", color = "0.47 0.6 0.85", style="rounded"];
+	14[label = "NRF", color = "0.02 0.6 0.85", style="rounded"];
+	15[label = "MACS2_narrow", color = "0.64 0.6 0.85", style="rounded"];
+	16[label = "FRiP", color = "0.25 0.6 0.85", style="rounded"];
+	17[label = "genrich", color = "0.52 0.6 0.85", style="rounded"];
+	18[label = "sortByRead", color = "0.40 0.6 0.85", style="rounded"];
+	19[label = "UROPA", color = "0.00 0.6 0.85", style="rounded"];
+	20[label = "diffbind", color = "0.30 0.6 0.85", style="rounded"];
+	21[label = "MEME", color = "0.37 0.6 0.85", style="rounded"];
+	19 -> 0
+	1 -> 0
+	20 -> 0
+	17 -> 0
+	16 -> 0
+	21 -> 0
+	14 -> 0
+	15 -> 0
+	6 -> 0
+	13 -> 0
+	11 -> 0
+	7 -> 0
+	8 -> 1
+	5 -> 1
+	9 -> 1
+	4 -> 1
+	10 -> 1
+	2 -> 1
+	6 -> 1
+	7 -> 1
+	3 -> 2
+	3 -> 4
+	6 -> 5
+	3 -> 6
+	6 -> 7
+	3 -> 9
+	11 -> 10
+	6 -> 11
+	12 -> 11
+	7 -> 11
+	6 -> 12
+	7 -> 12
+	6 -> 13
+	7 -> 13
+	6 -> 14
+	12 -> 15
+	7 -> 15
+	15 -> 16
+	17 -> 16
+	7 -> 16
+	18 -> 17
+	6 -> 18
+	15 -> 19
+	17 -> 19
+	20 -> 19
+	15 -> 20
+	17 -> 20
+	15 -> 21
+	17 -> 21
+}            
