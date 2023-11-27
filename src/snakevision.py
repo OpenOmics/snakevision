@@ -13,9 +13,10 @@ import dagviz
 # snakevision metadata
 __version__  = '0.1.0'
 __authors__  = 'Skyler Kuhn'
-__home__     =  os.path.dirname(os.path.abspath(__file__))
+__home__     = os.path.dirname(os.path.abspath(__file__))
 _name        = os.path.basename(sys.argv[0]).replace('.py', '')
 _description = 'create an awesome snakemake dag!'
+_min_python  = (3, 7)
 
 
 class Colors():
@@ -378,6 +379,18 @@ class SnakeVision(AbstractSnakeVision):
 
 
 def main():
+    # Check for minimum python verison,
+    # enforces running with python>=3.7
+    MINIMUM_PYTHON = _min_python
+    MAJOR_VERSION, MINOR_VERSION = MINIMUM_PYTHON
+    if sys.version_info < MINIMUM_PYTHON:
+        fatal(
+            'Error: Python {0}.{1} or later is required!'.format(
+                MAJOR_VERSION,
+                MINOR_VERSION
+            )
+        )
+
     # Parse command-line arguments
     args = parsed_arguments(name = _name, description = _description)
 
