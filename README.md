@@ -27,6 +27,12 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
     <img src="./examples/modr_dag.svg" alt="example_ont_snakevision_dag" width="39%">
     <img src="./examples/metavirs_dag.svg" alt="example_viral_snakevision_dag" width="58%">
     <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of our Oxford Nanopore direct RNA-sequencing pipeline, <a href="https://github.com/OpenOmics/modr">modr</a>.<br><b>Right:</b> A snakevision rule graph of a slimmed-down version of our viral metagenomics pipeline, <a href="https://github.com/OpenOmics/metavirs">metavirs</a>.</sup>
+</p><br>
+
+<p float="left">
+    <img src="./examples/chip_dag.svg" alt="example_chrom_chip_snakevision_dag" width="49%">
+    <img src="./examples/atac_dag.svg" alt="example_chrom_atac_snakevision_dag" width="49%">
+    <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of our ChIP-seq pipeline, <a href="https://github.com/OpenOmics/chrom-seek">chrom-seek run with the <code>--assay chip</code> option</a>.<br><b>Right:</b> A snakevision rule graph of a slimmed-down version of our bulk ATAC-seq pipeline, <a href="https://github.com/OpenOmics/chrom-seek">chrom-seek run with the <code>--assay atac</code> option</a>.</sup>
 </p>
 
 ## Dependencies
