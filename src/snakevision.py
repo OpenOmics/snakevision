@@ -9,6 +9,7 @@ import argparse, sys, os, textwrap
 # pip install if missing
 import networkx as nx
 import dagviz
+from dagviz.style.metro import svg_renderer, StyleConfig
 
 # snakevision metadata
 __version__  = '0.1.0'
@@ -76,6 +77,23 @@ def fatal(*message, **kwargs):
     sys.exit(1)
 
 
+def parse_style_attributes(styles: str):
+    if "=" not in styles:
+        raise argparse.ArgumentTypeError(
+            f"Expected key=value, got: {styles!r}"
+        )
+    k, v = styles.split("=", 1)
+    for cast in (int, float):
+        try:
+            v = cast(v)
+            break
+        except ValueError:
+            pass
+    if not k:
+        raise argparse.ArgumentTypeError("Style key cannot be empty")
+    return (k, v)
+
+
 def parsed_arguments(name, description):
     """Parses user-provided command-line arguments. Requires argparse package. 
     argparse was added to standard lib in python 3.5.
@@ -127,7 +145,7 @@ def parsed_arguments(name, description):
                 to this file.
                     • Default: "snakevision_dag.svg"  
                     • Example: --output awesome_pipleine_dag.svg
-        
+
           -s, --skip-rules RULE [RULE ...]
                 Name of snakemake rule(s) to not include in the figure. 
                 One or more rule names can be provided.  Any rule names 
@@ -136,6 +154,22 @@ def parsed_arguments(name, description):
                     • Default: "all" "multiqc"  
                     • Example: --skip-rules All Multiqc FastQC
 
+          -y, --style KEY=VALUE [KEY=VALUE ...]
+                Apply custom style attributes as key=value pairs.
+                Currently available attributes are (default in brackets):
+                    • scale: 10.0,
+                    • node_radius: 6.0,
+                    • node_fill: None,
+                    • node_stroke: 'white',
+                    • node_stroke_width: 2.0,
+                    • edge_stroke_width: 2.0,
+                    • label_font_family: 'sans-serif',
+                    • label_font_size: 'inherit',
+                    • label_arrow_stroke: 'lightgrey',
+                    • label_arrow_dash_array: 2,
+                    • arc_radius: 15.0,
+                    • minimal_width: 500
+
           -d, --debug-dag
                 Increases verbosity to help debug any DAG errors.
                     • Example: --debug-dag  
@@ -143,7 +177,7 @@ def parsed_arguments(name, description):
           -h, --help
                 Shows usage information, help message, and exits.
                     • Example: --help
-    
+
           -v, --version
                 Shows sematic version of tool and exits.
                     • Example: --version    
@@ -195,6 +229,16 @@ def parsed_arguments(name, description):
         nargs = '+',
         default = ['all', 'multiqc'],
         help = argparse.SUPPRESS
+    )
+
+    # Parse custom style attributes
+    parser.add_argument(
+         '-y' ,'--style',
+         action="append",
+         type=parse_style_attributes,
+         default = [],
+         required = False,
+         help = argparse.SUPPRESS
     )
 
     # Debugs DAG, increases verbosity
@@ -363,7 +407,7 @@ class SnakeVision(AbstractSnakeVision):
                 continue
             self.dag.add_edge(l1, l2)
 
-    def write(self, output = 'snakevision_dag.svg'):
+    def write(self, output = 'snakevision_dag.svg', style = {}):
         """Write DAG to output image."""
         # Create output directory as needed
         outdir = os.path.dirname(os.path.abspath(output))
@@ -371,9 +415,11 @@ class SnakeVision(AbstractSnakeVision):
             # Pipeline output directory
             # does not exist on filesystem
             os.makedirs(outdir)
-        # Write snakevision dag to SVG file
-        o = dagviz.render_svg(self.dag)
-        # Write SVG to a file
+        # Apply a custom style if available
+        custom_style = svg_renderer(StyleConfig(**style))
+        # Write snakevision dag to SVG
+        o = dagviz.render_svg(self.dag, style=custom_style)
+        # Write SVG to disk
         with open(output, "wt") as fs:
             fs.write(o)
 
@@ -402,7 +448,7 @@ def main():
     )
 
     # Write dag object to file
-    dag.write(output = args.output)
+    dag.write(output = args.output, style = dict(args.style))
 
 if __name__ == '__main__':
     main()

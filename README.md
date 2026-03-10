@@ -69,7 +69,8 @@ export PATH="${PATH}:$PWD/bin"
 
 Snakevision can read an input snakemake rulegraph via an input file or via standard input directly from a pipe. To create an input rule graph to the `snakevision`, please run snakemake with the `--rulegraph` and `--forceall` options.
 
-Here is an basic example:
+### Basic example
+
 ```bash
 # Create a input file for snakevision
 snakemake  --configfile=$pipeline_outdir/config.json \
@@ -87,6 +88,20 @@ snakevision \
     -o pipeline_rulegraph.svg \
     pipeline_rulegraph.dot
 ```
+
+### Customize DAG
+
+Snakevision provides a few options to customize the style of the DAG output. You can specify these options using the `-y` or `--styles` flag followed by the key-value pairs. Use `-y` multiple times to specify multiple style attributes. For example, you can change the size of the nodes and edges in the DAG by using the following command:
+
+```bash
+snakevision \
+    -y node_radius=10.0 \
+    -y edge_stroke_width=8.0 \
+    -o pipeline_rulegraph.svg \
+    pipeline_rulegraph.dot
+```
+
+For the full list of available options, run ` python src/snakevision.py --help`.
 
 ## Contribute 
 This site is a living document, created for and by members like you. snakevision is maintained by the members of OpenOmics and is improved by continuous feedback! We encourage you to contribute new content and make improvements to existing content via pull requests to our [GitHub repository](https://github.com/OpenOmics/snakevision).
