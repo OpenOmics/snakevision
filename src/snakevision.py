@@ -3,6 +3,7 @@
 # Python standard library
 from __future__ import print_function
 from abc import ABC, abstractmethod
+from dataclasses import fields, MISSING
 import argparse, sys, os, textwrap
 
 # 3rd party package from pypi,
@@ -12,7 +13,7 @@ import dagviz
 from dagviz.style.metro import svg_renderer, StyleConfig
 
 # snakevision metadata
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 __authors__ = "Skyler Kuhn"
 __home__ = os.path.dirname(os.path.abspath(__file__))
 _name = os.path.basename(sys.argv[0]).replace(".py", "")
@@ -79,6 +80,16 @@ def fatal(*message, **kwargs):
 
 
 def parse_style_attributes(styles: str):
+    """Parses custom style attributes to override the default
+    styling of dagviz. For more information, please reference:
+    https://wimyedema.github.io/dagviz/dagviz/style/metro.html
+    @param styles <str>:
+        Custom style encoded as a key, value pair, i.e:
+        'node_radius=0.6' or 'node_stroke=white'
+    @returns parsed style info <tuple[str, str]>
+    """
+    # Get the set of allowed style attributes
+    allowed_attributes = [f.name for f in fields(StyleConfig)]
     if "=" not in styles:
         raise argparse.ArgumentTypeError(f"Expected key=value, got: {styles!r}")
     k, v = styles.split("=", 1)
@@ -88,9 +99,62 @@ def parse_style_attributes(styles: str):
             break
         except ValueError:
             pass
+    if k not in allowed_attributes:
+        # Attribute is not valid
+        raise argparse.ArgumentTypeError(
+            "Invalid style attribute: '{0}'.\nPlease select one of the following attributes:\n{1}".format(
+                k,
+                '\n'.join(["  • {0}".format(a) for a in allowed_attributes])
+            )
+        )
     if not k:
-        raise argparse.ArgumentTypeError("Style key cannot be empty")
+        raise argparse.ArgumentTypeError("Style key cannot be empty!")
     return (k, v)
+
+
+def flatten(nested_list):
+    """Flattens a nested list. This is used to flatten a nested list
+    of parsed argparse arguments where there can be a 1:M relationship
+    between a parameter and its provided values. This allows argparse
+    options with 1:M relationships to be specified as via: `-x A -x B`
+    or `-x A B` when the append action is used with nargs=+.
+    @param nested_list <list[Any]>:
+        Nested list to flatten, any encountered list elements will be
+        flattened.
+    @returns flattened_list <list[Any]>:
+        Flattened list
+    """
+    flattened_list = []
+    for v in nested_list:
+        if isinstance(v, list):
+            # Recursively flatten nested lists
+            flattened_list.extend(flatten(v))
+        else:
+            flattened_list.append(v)
+    return flattened_list
+
+
+def build_customizable_style_attributes_help_section(left_offset_amount = 18):
+    """Create the help section for the set of customizable style
+    attributes along with their default values. This information
+    is pulled from fields defined in the StyleConfig class.
+    @param left_offset_amount <int>:
+        Amount of white-space to left pad the help text
+    @returns help style text <str>:
+        Pre-formatted text containing style attributes and their defaults
+    """
+    stylized_attrs_defaults = []
+    attr_idx = 0  # offset the first attribute less
+    for f in fields(StyleConfig):
+        offset = " " * left_offset_amount
+        if attr_idx == 0:
+            offset = " "
+        default = None if f.default is MISSING else f.default
+        stylized_attrs_defaults.append(
+            f"{offset}• {f.name}: {default!r}"
+        )
+        attr_idx += 1
+    return "\n".join(stylized_attrs_defaults)
 
 
 def parsed_arguments(name, description):
@@ -102,7 +166,9 @@ def parsed_arguments(name, description):
         Short description of the command-line tool
     @returns parsed cli args <object argparse.ArgumentParser.parse_args()>
     """
-
+    # Get the set customizable style attributes
+    # along with their default values
+    _style_attr_help = build_customizable_style_attributes_help_section()
     # Add styled name and description
     _c = Colors
     _n = "{0}{1}{2}{3}{4}".format(_c.bold, _c.bg_black, _c.cyan, name, _c.end)
@@ -116,6 +182,7 @@ def parsed_arguments(name, description):
         {3}{4}Synopsis:{5}
           $ {2} [--help] [--version] \\
                 [--skip-rules RULE RULE ...] \\
+                [--style KEY=VALUE [KEY=VALUE ...]] \\
                 [--output OUTPUT] \\
                 snakemake_rulegraph
 
@@ -150,25 +217,22 @@ def parsed_arguments(name, description):
                 Name of snakemake rule(s) to not include in the figure. 
                 One or more rule names can be provided.  Any rule names 
                 provided to  this option will not be included in the 
-                final snakevision figure.
-                    • Default: "all" "multiqc"  
-                    • Example: --skip-rules All Multiqc FastQC
+                final snakevision figure. We recommend skipping rule
+                all or any other rules that represent final targets
+                in the pipeline as they tend to have many incoming
+                edges which clutters the resulting image.
+                    • Default: No rules are skipped
+                    • Example: --skip-rules all multiqc
 
           -y, --style KEY=VALUE [KEY=VALUE ...]
                 Apply custom style attributes as key=value pairs.
-                Currently available attributes are (default in brackets):
-                    • scale: 10.0,
-                    • node_radius: 6.0,
-                    • node_fill: None,
-                    • node_stroke: 'white',
-                    • node_stroke_width: 2.0,
-                    • edge_stroke_width: 2.0,
-                    • label_font_family: 'sans-serif',
-                    • label_font_size: 'inherit',
-                    • label_arrow_stroke: 'lightgrey',
-                    • label_arrow_dash_array: 2,
-                    • arc_radius: 15.0,
-                    • minimal_width: 500
+                Each key, value representing a style attribute and
+                its value should be seperated by a "=" character.
+                Here is a list of each available style attribute
+                and their default values:
+                 {7}
+                    • Default: See key, value pairs listed above
+                    • Example: --style "scale=11.0" "arc_radius=12.0"
 
           -d, --debug-dag
                 Increases verbosity to help debug any DAG errors.
@@ -182,7 +246,7 @@ def parsed_arguments(name, description):
                 Shows sematic version of tool and exits.
                     • Example: --version    
         """.format(
-            _n, _d, name, _c.bold, _c.url, _c.end, _c.italic
+            _n, _d, name, _c.bold, _c.url, _c.end, _c.italic, _style_attr_help
         )
     )
 
@@ -230,9 +294,10 @@ def parsed_arguments(name, description):
         "-s",
         "--skip-rules",
         type=str,
+        action="append",
         required=False,
         nargs="+",
-        default=["all", "multiqc"],
+        default=[],
         help=argparse.SUPPRESS,
     )
 
@@ -242,6 +307,7 @@ def parsed_arguments(name, description):
         "--style",
         action="append",
         type=parse_style_attributes,
+        nargs="+",
         default=[],
         required=False,
         help=argparse.SUPPRESS,
@@ -447,6 +513,13 @@ def main():
 
     # Parse command-line arguments
     args = parsed_arguments(name=_name, description=_description)
+
+    # Flatten options witn a 1:M relationships.
+    # This allows options to be specified as
+    # mutiple times or a space seperated list,
+    # i.e: `-x 1 -x 2 -x 3` or `-x 1 2 3`
+    args.skip_rules = flatten(args.skip_rules)
+    args.style = flatten(args.style)
 
     # Create a snakevision dag object
     dag = SnakeVision(
