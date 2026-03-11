@@ -103,8 +103,7 @@ def parse_style_attributes(styles: str):
         # Attribute is not valid
         raise argparse.ArgumentTypeError(
             "Invalid style attribute: '{0}'.\nPlease select one of the following attributes:\n{1}".format(
-                k,
-                '\n'.join(["  • {0}".format(a) for a in allowed_attributes])
+                k, "\n".join(["  • {0}".format(a) for a in allowed_attributes])
             )
         )
     if not k:
@@ -134,7 +133,7 @@ def flatten(nested_list):
     return flattened_list
 
 
-def build_customizable_style_attributes_help_section(left_offset_amount = 18):
+def build_customizable_style_attributes_help_section(left_offset_amount=18):
     """Create the help section for the set of customizable style
     attributes along with their default values. This information
     is pulled from fields defined in the StyleConfig class.
@@ -150,9 +149,7 @@ def build_customizable_style_attributes_help_section(left_offset_amount = 18):
         if attr_idx == 0:
             offset = " "
         default = None if f.default is MISSING else f.default
-        stylized_attrs_defaults.append(
-            f"{offset}• {f.name}: {default!r}"
-        )
+        stylized_attrs_defaults.append(f"{offset}• {f.name}: {default!r}")
         attr_idx += 1
     return "\n".join(stylized_attrs_defaults)
 
