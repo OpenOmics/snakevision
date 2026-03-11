@@ -47,6 +47,8 @@ Please follow the instructions directly below to install snakevision on your loc
 
 ## Installation
 
+### Github
+
 Please clone this repository to your local filesystem using the following command:
 
 ```bash
@@ -66,14 +68,7 @@ source .venv/bin/activate
 # Upgrade pip and install the list
 # of required python packages
 pip install -U pip
-pip install -r requirements.txt
-
-# Get installation, get
-# usage information of tool
-./bin/snakevision -h
-
-# Add snakevision to $PATH
-export PATH="${PATH}:$PWD/bin"
+pip install -e .
 ```
 
 ## Getting Started
@@ -115,7 +110,7 @@ snakevision \
     pipeline_rulegraph.dot
 ```
 
-For the full list of available options, run `./bin/snakevision -h`.
+For the full list of available options, run `snakevision -h`.
 
 ## Contribute
 
