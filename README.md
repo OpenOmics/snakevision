@@ -4,14 +4,16 @@
   
   **_An awesome tool to visualize Snakemake DAGs_**
 
-  [![GitHub issues](https://img.shields.io/github/issues/OpenOmics/snakevision?color=brightgreen)](https://github.com/OpenOmics/snakevision/issues)  [![GitHub license](https://img.shields.io/github/license/OpenOmics/snakevision)](https://github.com/OpenOmics/snakevision/blob/main/LICENSE) 
-  
+[![GitHub issues](https://img.shields.io/github/issues/OpenOmics/snakevision?color=brightgreen)](https://github.com/OpenOmics/snakevision/issues)
+[![GitHub license](https://img.shields.io/github/license/OpenOmics/snakevision)](https://github.com/OpenOmics/snakevision/blob/main/LICENSE)
+
 </div>
 
 ## Overview
+
 Welcome to snakevision! Before getting started, we highly recommend reading through our documentation below.
 
-**`./snakevision`** provides a simplified command-line interface to visualize Snakemake DAGs or rule graphs. If you are familiar with other existing tools to visualize DAGs like [graphviz](https://graphviz.org/), getting started with `snakevision` should be a breeze. 
+**`./snakevision`** provides a simplified command-line interface to visualize Snakemake DAGs or rule graphs. If you are familiar with other existing tools to visualize DAGs like [graphviz](https://graphviz.org/), getting started with `snakevision` should be a breeze.
 
 ## Examples
 
@@ -36,40 +38,45 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
 </p>
 
 ## Dependencies
+
 **Requires:** `snakemake` `python>=3.7`
 
-At the current moment, the tool is designed to visualize rule graphs of existing snakemake pipelines. As so, [Snakemake<sup>1</sup>](https://snakemake.readthedocs.io/en/stable/) and any dependencies of the pipeline should be installed on the target system. This tool relies on a few 3rd-party pypi python packages which can be installed via pip from the provided [requirements.txt](https://github.com/OpenOmics/snakevision/blob/main/requirements.txt). 
+At the current moment, the tool is designed to visualize rule graphs of existing snakemake pipelines. As so, [Snakemake<sup>1</sup>](https://snakemake.readthedocs.io/en/stable/) and any dependencies of the pipeline should be installed on the target system. This tool relies on a few 3rd-party pypi python packages which can be installed via pip from the provided [requirements.txt](https://github.com/OpenOmics/snakevision/blob/main/requirements.txt).
 
 Please follow the instructions directly below to install snakevision on your local system.
 
 ## Installation
+
+### Github
+
 Please clone this repository to your local filesystem using the following command:
+
 ```bash
 # Clone Repository from Github
 git clone https://github.com/OpenOmics/snakevision.git
+
 # Change your working directory
 cd snakevision/
+
 # Create a python virtual environment
 # to install required python packages
 python -m venv .venv
+
 # Activate the virtual environment
 source .venv/bin/activate
+
 # Upgrade pip and install the list
 # of required python packages
 pip install -U pip
-pip install -r requirements.txt
-# Get check installation, get 
-# usage information of tool
-./bin/snakevision -h
-# Add snakevision to $PATH
-export PATH="${PATH}:$PWD/bin"
+pip install -e .
 ```
 
 ## Getting Started
 
 Snakevision can read an input snakemake rulegraph via an input file or via standard input directly from a pipe. To create an input rule graph to the `snakevision`, please run snakemake with the `--rulegraph` and `--forceall` options.
 
-Here is an basic example:
+### Basic example
+
 ```bash
 # Create a input file for snakevision
 snakemake  --configfile=$pipeline_outdir/config.json \
@@ -80,7 +87,7 @@ snakemake  --configfile=$pipeline_outdir/config.json \
 > pipeline_rulegraph.dot
 
 # Run snakevision, do not include
-# rule all and multiqc in the image, 
+# rule all and multiqc in the image,
 # makes final image less cluttered
 snakevision \
     -s all mutliqc \
@@ -88,13 +95,30 @@ snakevision \
     pipeline_rulegraph.dot
 ```
 
-## Contribute 
-This site is a living document, created for and by members like you. snakevision is maintained by the members of OpenOmics and is improved by continuous feedback! We encourage you to contribute new content and make improvements to existing content via pull requests to our [GitHub repository](https://github.com/OpenOmics/snakevision).
+### Customize DAG
 
+Snakevision provides a few options to customize the style of the DAG output.
+You can specify these options using the `-y` or `--styles` flag followed by the key-value pairs.
+Use `-y` multiple times to specify multiple style attributes.
+For example, you can change the size of the nodes and edges in the DAG by using the following command:
+
+```bash
+snakevision \
+    -y node_radius=10.0 \
+    -y edge_stroke_width=8.0 \
+    -o pipeline_rulegraph.svg \
+    pipeline_rulegraph.dot
+```
+
+For the full list of available options, run `snakevision -h`.
+
+## Contribute
+
+This site is a living document, created for and by members like you. snakevision is maintained by the members of OpenOmics and is improved by continuous feedback! We encourage you to contribute new content and make improvements to existing content via pull requests to our [GitHub repository](https://github.com/OpenOmics/snakevision).
 
 ## Cite
 
-If you use this software, please cite it as below:  
+If you use this software, please cite it as below:
 
 <details>
   <summary><b><i>@BibText</i></b></summary>
@@ -115,4 +139,5 @@ Citation coming soon!
 </details>
 
 ## References
-<sup>**1.**  Koster, J. and S. Rahmann (2018). "Snakemake-a scalable bioinformatics workflow engine." Bioinformatics 34(20): 3600.</sup>  
+
+<sup>**1.** Koster, J. and S. Rahmann (2018). "Snakemake-a scalable bioinformatics workflow engine." Bioinformatics 34(20): 3600.</sup>

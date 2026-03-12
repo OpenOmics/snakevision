@@ -1,0 +1,44 @@
+name: Testing
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  Formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Formatting
+        uses: super-linter/super-linter@v8
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_YAML_PRETTIER: true
+          VALIDATE_MARKDOWN_PRETTIER: true
+          VALIDATE_PYTHON_BLACK: true
+
+  Testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.10", "3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Test DAG visualization
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+          snakevision \
+              -s all multiqc \
+              -y scale=15.0 node_stroke=white edge_stroke_width=3 \
+              -o examples/atac_dag_test.svg \
+              examples/atac_rulegraph.dot
