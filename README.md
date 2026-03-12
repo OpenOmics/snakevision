@@ -4,6 +4,9 @@
   
   **_An awesome tool to visualize Snakemake DAGs_**
 
+[![DOI](https://zenodo.org/badge/719368540.svg)](https://doi.org/10.5281/zenodo.18988674)
+[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/OpenOmics/snakevision?color=blue&include_prereleases)](https://github.com/OpenOmics/snakevision/releases)<br>
+[![tests](https://github.com/OpenOmics/snakevision/workflows/tests/badge.svg)](https://github.com/OpenOmics/snakevision/actions/workflows/testing.yaml)
 [![GitHub issues](https://img.shields.io/github/issues/OpenOmics/snakevision?color=brightgreen)](https://github.com/OpenOmics/snakevision/issues)
 [![GitHub license](https://img.shields.io/github/license/OpenOmics/snakevision)](https://github.com/OpenOmics/snakevision/blob/main/LICENSE)
 
@@ -41,32 +44,43 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
 
 **Requires:** `snakemake` `python>=3.7`
 
-At the current moment, the tool is designed to visualize rule graphs of existing snakemake pipelines. As so, [Snakemake<sup>1</sup>](https://snakemake.readthedocs.io/en/stable/) and any dependencies of the pipeline should be installed on the target system. This tool relies on a few 3rd-party pypi python packages which can be installed via pip from the provided [requirements.txt](https://github.com/OpenOmics/snakevision/blob/main/requirements.txt).
+At the current moment, the tool is designed to visualize rule graphs of existing snakemake pipelines. As so, [Snakemake<sup>1</sup>](https://snakemake.readthedocs.io/en/stable/) and any dependencies of the pipeline should be installed on the target system. This tool relies on a few 3rd-party pypi python packages which can be installed via pip.
 
 Please follow the instructions directly below to install snakevision on your local system.
 
 ## Installation
 
+### PyPi
+
+Snakevision is available on PyPi and can be installed using pip:
+
+```bash
+# Install directly from PyPi
+# Create a python virtual environment
+python3 -m venv .env
+# Activate the virtual environment
+source .env/bin/activate
+# Install required snakevision and its
+# required python packages
+pip install -U pip
+pip install snakevision
+```
+
 ### Github
 
-Please clone this repository to your local filesystem using the following command:
+Snakevision is available on Github and can be installed using pip:
 
 ```bash
 # Clone Repository from Github
 git clone https://github.com/OpenOmics/snakevision.git
-
 # Change your working directory
 cd snakevision/
-
 # Create a python virtual environment
-# to install required python packages
-python -m venv .venv
-
+python3 -m venv .env
 # Activate the virtual environment
-source .venv/bin/activate
-
-# Upgrade pip and install the list
-# of required python packages
+source .env/bin/activate
+# Install required snakevision and its
+# required python packages
 pip install -U pip
 pip install -e .
 ```
@@ -76,6 +90,8 @@ pip install -e .
 Snakevision can read an input snakemake rulegraph via an input file or via standard input directly from a pipe. To create an input rule graph to the `snakevision`, please run snakemake with the `--rulegraph` and `--forceall` options.
 
 ### Basic example
+
+Here’s a basic example showing how to generate a rule graph for a Snakemake workflow and visualize it with snakevision. For details on creating rule graphs, see the [Snakemake documentation](https://snakemake.readthedocs.io).
 
 ```bash
 # Create a input file for snakevision
@@ -110,6 +126,18 @@ snakevision \
     pipeline_rulegraph.dot
 ```
 
+### Run with example rulegraphs
+
+In the `examples/` folder, there are a few example `.dot` input files that you can use to get started. These input files are generated from a slimmed-down version of the pipelines available from OpenOmics, and they are included in this repository for demonstration and testing purposes.
+
+```bash
+snakevision \
+  -y node_radius=10 \
+  -s all rnaseq_multiqc \
+  -o rnaseq_rulegraph.svg \
+  examples/rna-seek_rulegraph.dot
+```
+
 For the full list of available options, run `snakevision -h`.
 
 ## Contribute
@@ -124,7 +152,17 @@ If you use this software, please cite it as below:
   <summary><b><i>@BibText</i></b></summary>
  
 ```text
-Citation coming soon!
+@software{kuhn_2026_18988675,
+  author       = {Kuhn, Skyler and
+                  Jahn, Michael},
+  title        = {OpenOmics/snakevision: v1.0.0},
+  month        = mar,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.18988674},
+  url          = {https://doi.org/10.5281/zenodo.18988674},
+}
 ```
 
 </details>
@@ -133,7 +171,7 @@ Citation coming soon!
   <summary><b><i>@APA</i></b></summary>
 
 ```text
-Citation coming soon!
+Kuhn, S., & Jahn, M. (2026). OpenOmics/snakevision: v1.0.0 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.18988674
 ```
 
 </details>
