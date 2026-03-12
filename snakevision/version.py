@@ -12,4 +12,4 @@ For more information:
 - Release Please: https://github.com/googleapis/release-please
 """
 # Package version information
-__version__ = "0.1.0"  # {x-release-please-version}
+__version__ = "1.0.0"  # {x-release-please-version}

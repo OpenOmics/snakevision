@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "snakevision"
-version = "0.1.0"
+version = "1.0.0"
 description = "A tool to visualize Snakemake workflows."
 authors = [
     { name = "Skyler Kuhn" },
