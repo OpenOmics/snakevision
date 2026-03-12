@@ -1,2 +1,0 @@
-networkx==3.6.1
-dagviz==0.5.0
