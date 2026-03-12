@@ -1,8 +1,13 @@
 name: Testing
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   Formatting:
