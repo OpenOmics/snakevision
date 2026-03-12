@@ -6,7 +6,7 @@ visualizations. The package exposes the `SnakeVision` class as its primary
 public interface, along with other package metadata (such as the version).
 """
 from .snakevision import SnakeVision
-from .metadata import __version__
+from .version import __version__
 
 
 # Expose the SnakeVision class along

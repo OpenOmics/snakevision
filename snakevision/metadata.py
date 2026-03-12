@@ -10,7 +10,6 @@ import os
 
 
 # Important metadata and other constants
-__version__ = "1.0.0"
 __authors__ = "Skyler Kuhn"
 __home__ = os.path.dirname(os.path.abspath(__file__))
 pkg_name = "snakevision"

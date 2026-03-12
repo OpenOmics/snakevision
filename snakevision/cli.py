@@ -16,7 +16,6 @@ import textwrap
 from dagviz.style.metro import StyleConfig
 # Local relative imports
 from .metadata import (
-    __version__,
     pkg_name,
     pkg_description,
     pkg_min_python
@@ -28,6 +27,7 @@ from .utils import (
     flatten,
     log
 )
+from .version import __version__
 
 
 # Helper functions for parsing command-line arguments and building
