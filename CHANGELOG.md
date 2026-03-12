@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1](https://github.com/OpenOmics/snakevision/compare/v1.0.0...v1.0.1) (2026-03-12)
+
+
+### Documentation
+
+* updating getting started info, badges, and adding zenodo citation. ([f0c7693](https://github.com/OpenOmics/snakevision/commit/f0c76937eb0bf9967445984470d5610adbd4e187))
+
 ## [1.0.0](https://github.com/OpenOmics/snakevision/compare/v0.1.0...v1.0.0) (2026-03-12)
 
 
