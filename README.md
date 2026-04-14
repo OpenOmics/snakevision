@@ -4,7 +4,7 @@
   
   **_An awesome tool to visualize Snakemake DAGs_**
 
-[![DOI](https://zenodo.org/badge/719368540.svg)](https://doi.org/10.5281/zenodo.18988674)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18988674-blue)](https://doi.org/10.5281/zenodo.18988674)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/OpenOmics/snakevision?color=blue&include_prereleases)](https://github.com/OpenOmics/snakevision/releases)<br>
 [![tests](https://github.com/OpenOmics/snakevision/actions/workflows/testing.yaml/badge.svg)](https://github.com/OpenOmics/snakevision/actions/workflows/testing.yaml)
 [![GitHub issues](https://img.shields.io/github/issues/OpenOmics/snakevision?color=brightgreen)](https://github.com/OpenOmics/snakevision/issues)
