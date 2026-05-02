@@ -19,12 +19,15 @@ snakevision package independent of its command-line interface.
 from abc import ABC, abstractmethod
 import os
 import textwrap
+
 # 3rd party package from pypi,
 # pip install if missing
 import dagviz
 from dagviz.style.metro import svg_renderer, StyleConfig
 import networkx as nx
+
 # Local relative imports
+from .animation import AnimationConfig, enhance_svg
 from .utils import Colors
 
 
@@ -57,7 +60,16 @@ class SnakeVision(AbstractSnakeVision):
         dag.write('/path/to/output/pipeline_dag.svg')
     """
 
-    def __init__(self, input, dag=nx.DiGraph(), skip=[], verbose=False):
+    def __init__(self, input, dag=None, skip=None, verbose=False):
+        # Avoid mutable default arguments so each SnakeVision instance starts
+        # with its own graph and skip list. This is especially important for
+        # library usage and tests where multiple instances may be created in
+        # the same Python process.
+        if dag is None:
+            dag = nx.DiGraph()
+        if skip is None:
+            skip = []
+
         self.input = input  # Input open file handle to a snakemake rule graph
         self.dag = dag  # networkx.DiGraph() object to model relationships
         self.skip = skip  # Do not add these rules in figure
@@ -172,19 +184,61 @@ class SnakeVision(AbstractSnakeVision):
                 continue
             self.dag.add_edge(l1, l2)
 
-    def write(self, output="snakevision_dag.svg", style={}):
-        """Write DAG to output image."""
+    def write(
+        self,
+        output="snakevision_dag.svg",
+        style=None,
+        animation_config=None,
+    ):
+        """Write DAG to output image.
+
+        @param output <str>:
+            Path to the SVG output file.
+        @param style <dict|None>:
+            Optional dagviz StyleConfig overrides. When None, default dagviz
+            styling is used.
+        @param animation_config <AnimationConfig|None>:
+            Optional animation configuration. When provided and enabled, the
+            static dagviz SVG is post-processed to add declarative packet
+            animation and, optionally, interactive JavaScript controls.
+        """
+        if style is None:
+            style = {}
+
         # Create output directory as needed
         outdir = os.path.dirname(os.path.abspath(output))
         if not os.path.exists(outdir):
             # Pipeline output directory
             # does not exist on filesystem
             os.makedirs(outdir)
+
         # Apply a custom style if available
         custom_style = svg_renderer(StyleConfig(**style))
-        # Write snakevision dag to SVG
-        o = dagviz.render_svg(self.dag, style=custom_style)
-        ## Write SVG to disk
-        if os.path.exists(output): os.remove(output)
+
+        # Render the static snakevision DAG first.
+        # This preserves existing behavior and lets
+        # the optional animation code operate as a
+        # pure SVG post-processing step.
+        svg_text = dagviz.render_svg(self.dag, style=custom_style)
+
+        # Add optional packet animation and interactive
+        # controls. We pass the final rendered graph
+        # edges, not the raw parsed edges, so animation
+        # respects any skipped rules and exactly matches
+        # what the user should see.
+        if animation_config is not None and (
+            animation_config.enabled or animation_config.interactive_js
+        ):
+            # Add animation and interactivity
+            svg_text = enhance_svg(
+                svg_text=svg_text,
+                edges=list(self.dag.edges()),
+                config=animation_config,
+                arc_radius=style.get("edge_arc_radius", 15.0)
+            )
+
+        # Write DAG SVG to disk
+        if os.path.exists(output):
+            os.remove(output)
         with open(output, "wt") as fs:
-            fs.write(o)
+            fs.write(svg_text)
