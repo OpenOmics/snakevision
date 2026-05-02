@@ -15,6 +15,7 @@ rule) to reduce clutter in the final image.
 The module is intended to provide the reusable program logic for the
 snakevision package independent of its command-line interface.
 """
+
 # Python standard library
 from abc import ABC, abstractmethod
 import os
@@ -89,13 +90,11 @@ class SnakeVision(AbstractSnakeVision):
             print(self.verbose_dag)
 
     def __repr__(self):
-        return textwrap.dedent(
-            """
+        return textwrap.dedent("""
             Class usage example:
             dag = SnakeVision('snakemake_rulegraph.txt')
             dag.write('/path/to/output/pipeline_dag.svg')
-            """
-        )
+            """)
 
     def __str__(self):
         return self.verbose_dag
@@ -103,8 +102,7 @@ class SnakeVision(AbstractSnakeVision):
     def debug_dag(self):
         """Displays verbose information of the parsed rule graph."""
         _c = Colors
-        self.verbose_dag = textwrap.dedent(
-            """
+        self.verbose_dag = textwrap.dedent("""
             {3}{4}Node-to-label mappings:{5}
             • {0}
 
@@ -113,10 +111,7 @@ class SnakeVision(AbstractSnakeVision):
 
             {3}{4}Order of encountered labels:{5}
             • {2}
-            """.format(
-                self.node2label, self.n2n, self.labels, _c.bold, _c.url, _c.end
-            )
-        )
+            """.format(self.node2label, self.n2n, self.labels, _c.bold, _c.url, _c.end))
 
     def parse(self):
         """Parses a snakemake rule graph, saves parsed output in node2labels
@@ -234,7 +229,7 @@ class SnakeVision(AbstractSnakeVision):
                 svg_text=svg_text,
                 edges=list(self.dag.edges()),
                 config=animation_config,
-                arc_radius=style.get("edge_arc_radius", 15.0)
+                arc_radius=style.get("edge_arc_radius", 15.0),
             )
 
         # Write DAG SVG to disk

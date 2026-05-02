@@ -20,6 +20,7 @@ controls, hover dependency highlighting, and additional options pertaining to
 click-to-show rule metadata popups. It is intended for embedding the SVG on
 Github pages or for opening the SVG directly in a browser.
 """
+
 # Python standard library
 from __future__ import annotations
 from collections import defaultdict, deque
@@ -29,10 +30,22 @@ import math
 import re
 import sys
 import xml.etree.ElementTree as ET
-from typing import Any, DefaultDict, Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import (
+    Any,
+    DefaultDict,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+)
+
 # 3rd party package from pypi,
 # pip install if missing
 import yaml
+
 # Local relative imports
 from .interactivity import javascript
 
@@ -88,6 +101,7 @@ class AnimationConfig:
         Whether to add CSS that hides packet animation when the user has enabled
         the OS/browser `prefers-reduced-motion` accessibility setting.
     """
+
     # Animation configuration options
     # and their defaults
     enabled: bool = False
@@ -157,14 +171,14 @@ def load_rule_metadata_yaml(path: Optional[str]) -> Optional[Dict[str, str]]:
         None when no path is provided, otherwise a normalized string mapping.
     """
     if not path:
-        return None # empty string
+        return None  # empty string
 
     with open(path, "r", encoding="utf-8") as fh:
         # Load the yaml file
         data = yaml.safe_load(fh)
 
     if data is None:
-        return {} # empty file
+        return {}  # empty file
 
     if not isinstance(data, dict):
         raise ValueError(
@@ -566,8 +580,7 @@ def compute_edge_start_phases(
                 )
 
     return {
-        edge_idx: sorted(phases)
-        for edge_idx, phases in edge_start_phases.items()
+        edge_idx: sorted(phases) for edge_idx, phases in edge_start_phases.items()
     }, warnings
 
 
@@ -871,7 +884,7 @@ def enhance_svg(
     svg_text: str,
     edges: Sequence[Tuple[str, str]],
     config: AnimationConfig,
-    arc_radius: float
+    arc_radius: float,
 ) -> str:
     """Enhance a rendered snakevision SVG with optional packet animation.
 

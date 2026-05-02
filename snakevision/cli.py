@@ -5,6 +5,7 @@ package, including argument parsing, validation of user-provided style
 overrides, animation options, and generation of formatted help text
 describing supported options and customizable rendering attributes.
 """
+
 # Python standard library
 from dataclasses import fields, MISSING
 import argparse
@@ -18,18 +19,9 @@ from dagviz.style.metro import StyleConfig
 
 # Local relative imports
 from .animation import AnimationConfig
-from .metadata import (
-    pkg_name,
-    pkg_description,
-    pkg_min_python
-)
+from .metadata import pkg_name, pkg_description, pkg_min_python
 from .snakevision import SnakeVision
-from .utils import (
-    Colors,
-    fatal,
-    flatten,
-    log
-)
+from .utils import Colors, fatal, flatten, log
 from .version import __version__
 
 
@@ -75,6 +67,7 @@ def positive_float(option_name):
     @returns validator <callable>:
         Function that converts an input string to a positive float.
     """
+
     def _validator(value):
         try:
             parsed = float(value)
@@ -99,6 +92,7 @@ def positive_int(option_name):
     @returns validator <callable>:
         Function that converts an input string to a positive integer.
     """
+
     def _validator(value):
         try:
             parsed = int(value)
@@ -166,8 +160,7 @@ def parsed_arguments(name, description, version):
 
     # Creating a custom help and usage message,
     # the default styling of argparse is too basic.
-    _styled_help = textwrap.dedent(
-        """\
+    _styled_help = textwrap.dedent("""\
         {0}: {1}
 
         {3}{4}Synopsis:{5}
@@ -285,10 +278,7 @@ def parsed_arguments(name, description, version):
                 may be single-line strings or multiline YAML block strings.
                 Requires --interactive-js and PyYAML.
                     • Example: --rule-metadata-yaml rule_metadata.yaml
-        """.format(
-            _n, _d, name, _c.bold, _c.url, _c.end, _c.italic, _style_attr_help
-        )
-    )
+        """.format(_n, _d, name, _c.bold, _c.url, _c.end, _c.italic, _style_attr_help))
 
     # Supressing help messages, use style messages
     parser = argparse.ArgumentParser(
@@ -484,9 +474,7 @@ def main():
 
     # Parse command-line arguments
     args = parsed_arguments(
-        name=pkg_name,
-        description=pkg_description,
-        version=__version__
+        name=pkg_name, description=pkg_description, version=__version__
     )
 
     # Flatten options witn a 1:M relationships.
@@ -507,12 +495,16 @@ def main():
         packet_interval=args.packet_interval,
         speed=args.packet_speed,
         packet_radius=args.packet_radius,
-        rule_metadata_yaml=args.rule_metadata_yaml
+        rule_metadata_yaml=args.rule_metadata_yaml,
     )
 
     log("Started parsing rulegraph: {0}".format(getattr(args.input_file, "name", "")))
     if args.skip_rules:
-        log("Skipping over the following rules in DAG visualization: {0}".format(args.skip_rules))
+        log(
+            "Skipping over the following rules in DAG visualization: {0}".format(
+                args.skip_rules
+            )
+        )
 
     # Create a snakevision dag object
     dag = SnakeVision(
@@ -529,7 +521,11 @@ def main():
         else:
             log("Adding script-free SVG packet animation to DAG output")
     if animation_config.rule_metadata_yaml:
-        log("Adding rule metadata popups from: {0}".format(animation_config.rule_metadata_yaml))
+        log(
+            "Adding rule metadata popups from: {0}".format(
+                animation_config.rule_metadata_yaml
+            )
+        )
 
     # Write the DAG to the specified output file
     dag.write(

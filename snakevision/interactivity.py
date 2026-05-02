@@ -5,6 +5,7 @@ interactive SVG output in snakevision. This includes play/pause/reset controls,
 hover effects, and click-to-show metadata popups.
 """
 
+
 def javascript(payload: str) -> str:
     """Return the self-contained JavaScript used by interactive SVG output.
 
