@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1](https://github.com/OpenOmics/snakevision/compare/v1.1.0...v1.1.1) (2026-05-02)
+
+
+### Documentation
+
+* adding animated RNA-seek pipeline to README. ([b1a9d35](https://github.com/OpenOmics/snakevision/commit/b1a9d3504ae1ea358a1cb81376728fff66f05e41))
+
 ## [1.1.0](https://github.com/OpenOmics/snakevision/compare/v1.0.0...v1.1.0) (2026-05-02)
 
 
