@@ -31,7 +31,8 @@ classifiers = [
 # Main package dependencies
 dependencies = [
   "dagviz>=0.4.0,<1",
-  "networkx>=2.5.1,<4"
+  "networkx>=2.5.1,<4",
+  "pyyaml>=5.4,<7"
 ]
 
 # Testing, linting, ci, and build dependencies
