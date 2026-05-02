@@ -24,7 +24,7 @@ Here are a few Snakemake rule graphs rendered by snakevision. These DAGs come fr
 
 <p float="left">
     <img src="./examples/genome-seek_dag.svg" alt="example_genome_snakevision_dag" width="35%">
-    <img src="./examples/rna-seek_dag.svg" alt="example_rna_snakevision_dag" width="63%">
+    <img src="./examples/rna-seek_dag_animated.svg" alt="example_rna_snakevision_dag" width="63%">
     <sup><b>Left:</b> A snakevision rule graph of a slimmed-down version of the whole genome sequencing pipeline, <a href="https://github.com/OpenOmics/genome-seek">genome-seek</a>.<br><b>Right:</b> A snakevision rule graph of a slimmed-down version of the <a href="https://github.com/OpenOmics/RNA-seek">rna-seek</a> pipeline.</sup>
 </p><br>
 
