@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0](https://github.com/OpenOmics/snakevision/compare/v1.0.0...v1.1.0) (2026-05-02)
+
+
+### Features
+
+* adding new modules to animate SVG and add interactivity. ([00702c7](https://github.com/OpenOmics/snakevision/commit/00702c722a8c7c2fd38a0e7dcf5ce5f45ee7965d))
+
+
+### Documentation
+
+* updating badge to use image shield over zenodo. ([e097213](https://github.com/OpenOmics/snakevision/commit/e0972130b1756f79379f91c9be1058e086ae63bb))
+
 ## [1.0.0](https://github.com/OpenOmics/snakevision/compare/v0.1.0...v1.0.0) (2026-03-12)
 
 
